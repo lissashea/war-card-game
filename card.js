@@ -34,17 +34,30 @@ const deck1 = new Deck();
 console.log(deck1)
 
 class GameOfWar {
-  constructor() {
+  constructor(deck) {
+    this.deck = deck;
     this.player1 = [];
     this.player2 = [];
-    this.deal()
+    this.dealCards();
   }
   
   dealCards() {
     for (let i = 0; i < 26; i++) {
-      this.player1.draw(this.deck);
-      this.player2.draw(this.deck);
+      this.player1.push(this.deck.cards.shift());
+      this.player2.push(this.deck.cards.shift());
     }
+  }
+
+  playRound() {
+
+  }
+
+  playWar() {
+
+  }
+
+  determineWinner() {
+    
   }
 }
 
