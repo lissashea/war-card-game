@@ -1,3 +1,5 @@
+const Deck = require('./Deck');
+
 class GameOfWar {
   constructor() {
     this.deck = new Deck();
@@ -110,6 +112,4 @@ class GameOfWar {
   }
 }
 
-const game1 = new GameOfWar();
-// console.log(game.player1);
-// console.log(game.player2);
+module.exports = GameOfWar;
