@@ -37,13 +37,14 @@ class GameOfWar {
   constructor() {
     this.player1 = [];
     this.player2 = [];
-  } 
-}
-
-class Player {
-  constructor(name) {
-    this.name = name;
-    this.deck = [];
-    this.winPile = [];
+    this.deal()
+  }
+  
+  dealCards() {
+    for (let i = 0; i < 26; i++) {
+      this.player1.draw(this.deck);
+      this.player2.draw(this.deck);
+    }
   }
 }
+
