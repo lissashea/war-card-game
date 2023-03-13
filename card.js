@@ -139,11 +139,11 @@ class GameOfWar {
 
   play() {
     let round = 0;
-
+  
     while (this.player1.length > 0 && this.player2.length > 0) {
       round++;
       console.log(`Round ${round}:`);
-
+  
       if (this.inWar) {
         // continue war round
         this.playWar();
@@ -155,12 +155,15 @@ class GameOfWar {
         // regular round
         this.playRound();
       }
-    }
-
-    if (this.player1.length > 0) {
-      console.log("Player 1 wins the game!");
-    } else {
-      console.log("Player 2 wins the game!");
+  
+      // check if a player has run out of cards
+      if (this.player1.length === 0) {
+        console.log("Player 2 wins the game!");
+        return;
+      } else if (this.player2.length === 0) {
+        console.log("Player 1 wins the game!");
+        return;
+      }
     }
   }
 
