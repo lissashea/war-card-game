@@ -169,7 +169,7 @@ class GameOfWar {
     const card2 = this.player2.shift();
     console.log(`Player 1 plays ${card1.rank} of ${card1.suit}`);
     console.log(`Player 2 plays ${card2.rank} of ${card2.suit}`);
-  
+
     if (card1.score > card2.score) {
       console.log("Player 1 wins the round!");
       this.player1.push(card1, card2);
@@ -178,9 +178,11 @@ class GameOfWar {
       this.player2.push(card1, card2);
     } else {
       console.log("War!");
-      this.playWar(card1, card2);
+      warPot = [card1, card2];
+      inWar = true;
     }
   }
+
   
   playWar(card1, card2) {
     const pot = [card1, card2];
