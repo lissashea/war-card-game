@@ -82,6 +82,7 @@ class Game {
     this.putCardsInPot(this.warCards);
     this.findRoundWinner(this.warCards);
     this.pot.push(...this.warCards);
+
     if (this.isWar) {
       return;
     } else {
@@ -112,18 +113,17 @@ class Game {
         this.winningPlayer = this.players[i];
         this.isWar = false;
       }
-      createPlayers(num) {
-        let playerCount = num;
-        while(playerCount) {
-            let newPlayer = {};
-            newPlayer.name = `Player ${playerCount}`;
-            newPlayer.hand = [];
-            this.players.unshift(newPlayer);
-            playerCount--;
-        }
-        return this.players;
+  createPlayers(num) {
+    let playerCount = num;
+    while(playerCount) {
+        let newPlayer = {};
+        newPlayer.name = `Player ${playerCount}`;
+        newPlayer.hand = [];
+        this.players.unshift(newPlayer);
+        playerCount--;
     }
-
+    return this.players;
+  }
     buildDeck() {
         this.suits.forEach(suit => {
             this.ranks.forEach(rank => {
@@ -228,10 +228,16 @@ class Game {
         this.warCards = [];
     }
 
-    collectCardsToPot (destination) {
-        this.players.forEach(player => {
-            let card = player.hand.pop();
-            destination.push(card);
+  collectCardsToPot (destination) {
+      this.players.forEach(player => {
+          let card = player.hand.pop();
+          destination.push(card);
         });
     }
+  }
+}
+}
 
+
+
+//logic for if there are not enough cards
