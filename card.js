@@ -136,30 +136,52 @@ class GameOfWar {
   }
 
   play() {
-    let round = 1;
+    let round = 0;
+    let inWar = false;
+    let warPot = [];
+
     while (this.player1.length > 0 && this.player2.length > 0) {
-      console.log(`Round ${round}:`);
-      const card1 = this.player1.shift();
-      const card2 = this.player2.shift();
-      console.log(`Player 1 plays ${card1.rank} of ${card1.suit}`);
-      console.log(`Player 2 plays ${card2.rank} of ${card2.suit}`);
-      if (card1.score > card2.score) {
-        console.log("Player 1 wins the round");
-        this.player1.push(card1, card2);
-      } else if (card2.score > card1.score) {
-        console.log("Player 2 wins the round");
-        this.player2.push(card1, card2);
-      } else {
-        console.log("War!");
-        this.playWar(card1, card2);
-      }
-      console.log(`Player 1 has ${this.player1.length} cards`);
-      console.log(`Player 2 has ${this.player2.length} cards`);
       round++;
+      console.log(`Round ${round}:`);
+
+      if (inWar) {
+        // continue war round
+        this.playWar(warPot);
+        if (!inWar) {
+          // war ended, continue playing game
+          this.playRound();
+        }
+      } else {
+        // regular round
+        this.playRound();
+      }
     }
-    console.log(`Game over! Player ${this.player1.length > 0 ? 1 : 2} wins!`);
+
+    if (this.player1.length > 0) {
+      console.log("Player 1 wins the game!");
+    } else {
+      console.log("Player 2 wins the game!");
+    }
   }
 
+  playRound() {
+    const card1 = this.player1.shift();
+    const card2 = this.player2.shift();
+    console.log(`Player 1 plays ${card1.rank} of ${card1.suit}`);
+    console.log(`Player 2 plays ${card2.rank} of ${card2.suit}`);
+  
+    if (card1.score > card2.score) {
+      console.log("Player 1 wins the round!");
+      this.player1.push(card1, card2);
+    } else if (card1.score < card2.score) {
+      console.log("Player 2 wins the round!");
+      this.player2.push(card1, card2);
+    } else {
+      console.log("War!");
+      this.playWar(card1, card2);
+    }
+  }
+  
   playWar(card1, card2) {
     const pot = [card1, card2];
     console.log("War!");
@@ -193,11 +215,6 @@ class GameOfWar {
         console.log("Another tie!");
       }
     }
-  }
-  
-
-  determineWinner() {
-
   }
 }
 
