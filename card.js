@@ -136,7 +136,7 @@ class GameOfWar {
       this.player2.push(this.deck.draw());
     }
   }
-  
+
   play() {
     let round = 0;
 
@@ -169,7 +169,7 @@ class GameOfWar {
     const card2 = this.player2.shift();
     console.log(`Player 1 plays ${card1.rank} of ${card1.suit}`);
     console.log(`Player 2 plays ${card2.rank} of ${card2.suit}`);
-
+  
     if (card1.score > card2.score) {
       console.log("Player 1 wins the round!");
       this.player1.push(card1, card2);
@@ -181,48 +181,62 @@ class GameOfWar {
       this.warPot = [card1, card2];
       this.inWar = true;
     }
+  
+    console.log(`Player 1 has ${this.player1.length} cards remaining.`);
+    console.log(`Player 2 has ${this.player2.length} cards remaining.`);
   }
-
   
   playWar() {
     let inSubWar = true;
     const pot = this.warPot;
   
     while (inSubWar) {
-      const card1a = this.player1.shift();
-      const card1b = this.player1.shift();
-      const card1c = this.player1.shift();
-      const card1d = this.player1.shift();
-  
-      const card2a = this.player2.shift();
-      const card2b = this.player2.shift();
-      const card2c = this.player2.shift();
-      const card2d = this.player2.shift();
-  
-      pot.push(card1a, card1b, card1c, card1d, card2a, card2b, card2c, card2d);
-  
-      const lastCard1 = this.player1.shift();
-      const lastCard2 = this.player2.shift();
-      pot.push(lastCard1, lastCard2);
-  
-      console.log(`Player 1 plays ${lastCard1.rank} of ${lastCard1.suit}`);
-      console.log(`Player 2 plays ${lastCard2.rank} of ${lastCard2.suit}`);
-  
-      if (lastCard1.score > lastCard2.score) {
-        console.log("Player 1 wins the war!");
-        this.player1.push(...pot);
+      if (this.player1.length < 4) {
+        console.log("Player 2 wins the war! Player 1 doesn't have enough cards.");
+        this.player2.push(...pot, ...this.player1);
         inSubWar = false;
         this.inWar = false;
-      } else if (lastCard1.score < lastCard2.score) {
-        console.log("Player 2 wins the war!");
-        this.player2.push(...pot);
+      } else if (this.player2.length < 4) {
+        console.log("Player 1 wins the war! Player 2 doesn't have enough cards.");
+        this.player1.push(...pot, ...this.player2);
         inSubWar = false;
         this.inWar = false;
       } else {
-        console.log("Another tie!");
+        const card1a = this.player1.shift();
+        const card1b = this.player1.shift();
+        const card1c = this.player1.shift();
+        const card1d = this.player1.shift();
+  
+        const card2a = this.player2.shift();
+        const card2b = this.player2.shift();
+        const card2c = this.player2.shift();
+        const card2d = this.player2.shift();
+  
+        pot.push(card1a, card1b, card1c, card1d, card2a, card2b, card2c, card2d);
+  
+        const lastCard1 = this.player1.shift();
+        const lastCard2 = this.player2.shift();
+        pot.push(lastCard1, lastCard2);
+  
+        console.log(`Player 1 plays ${lastCard1.rank} of ${lastCard1.suit}`);
+        console.log(`Player 2 plays ${lastCard2.rank} of ${lastCard2.suit}`);
+  
+        if (lastCard1.score > lastCard2.score) {
+          console.log("Player 1 wins the war!");
+          this.player1.push(...pot);
+          inSubWar = false;
+          this.inWar = false;
+        } else if (lastCard1.score < lastCard2.score) {
+          console.log("Player 2 wins the war!");
+          this.player2.push(...pot);
+          inSubWar = false;
+          this.inWar = false;
+        } else {
+          console.log("Another tie!");
+        }
       }
     }
-  }  
+  }
 }
 
 const game = new GameOfWar();
