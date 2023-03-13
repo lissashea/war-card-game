@@ -1,58 +1,38 @@
+Game of War
+Game of War is a classic card game played with a standard deck of 52 playing cards. The objective of the game is to win all the cards.
+
+Rules
+1. The deck is divided evenly between two players.
+In each round, both players play the top card from their deck.
+2. The player with the higher card wins the round and takes both cards.
+3. If both players play cards of the same rank, a "war" is declared:
+4. Each player plays three additional cards face down, and then one more card face up.
+5. The player with the higher card wins all the cards in the "war".
+6. The game ends when one player has won all the cards.
+How to Run
 
 
-# Game of War
+To play the game, run the following command in your terminal:
 
-Have you played the card game [War](https://www.youtube.com/watch?v=yX-jOVer758)? It's very simple! 
+```
+node GameOfWar.js
+```
+This will start the game and output the progress of each round to the console.
 
-Two players evenly split a shuffled deck of 52 standard playing cards. 
-Each stack is facedown, and players cannot look at the cards in their stack or rearrange them.
-The objective of the game is to play until one player has all 52 cards in their stack.
+Implementation Details:
 
-Players take turns playing the top card from their stacks. 
-Whoever's card is a higher value puts both cards at the bottom of their stack.
+1. This Game of War implementation is written in JavaScript and uses classes to represent the game components. The Card class represents a playing card, the Deck class represents a deck of cards, and the GameOfWar class represents the game itself.
 
-If there is a tie, then it's War! Each player adds three cards of their stack face down.
-Each player reveals their fourth card. Whoever wins that reveal takes all of the cards!
-If there is another tie the process repeats until there is a winner.
+2. The game is played by creating a new instance of the GameOfWar class, which initializes a new Deck and deals the cards to two players. The GameOfWar class then proceeds to play rounds until one player wins all the cards.
 
+3. During each round, the GameOfWar class compares the top cards of each player's deck and determines a winner. If a "war" is declared, the GameOfWar class plays additional cards and determines a winner for the "war".
 
-## Instructions
+4. At the end of the game, the GameOfWar class outputs the winner to the console.
 
-1. Create a new repository on GitHub (not GitHub Enterprise).
-1. Clone down the repository and complete your work in there.
-1. Fulfill the listed requirements below.
+Future Improvements:
 
-Please turn in your submission by the deadline on your cohort calendar. Submit
-your project by posting an issue on this repository with a link to your
-repository on GitHub (not GitHub Enterprise).
+1.Add a user interface to allow players to interact with the game.
 
-
-### Technical Requirements
-
-Your project should meet the following requirements:
-
-- Your game should run without errors
-- The game starts immediately when the JavaScript is executed. Create your two players and start the rounds!
-- There is no user input. The program simply loops through rounds until the game is finished.
-- Print a message for each round showing the cards played by each user, who won the round, and how many cards each player has.
-- Include a README written in well-formatted Markdown (_hint: look up [README templates](https://www.readme-templates.com/)_)
-- Show a good commit history with frequent commits (We're looking for lots of small commits!)
-
-
-## Hints
-
-- Adding a property for the "value" of a rank could make it easier to compare face cards (ie: Jack < Queen). For example, 2-10 will represent each number and then 11, 12, 13, 14 for J Q K A, respectively.
-- It could be helpful to have a class to represent the overall Game, particularly when handling ties and other complicated game states.
-- Write Pseudocode!
-- Break the project down into different components. What are the pieces to this problem? Solve them each individually and build towards a solution for the overall problem. Teach each piece individually before moving on!
-- Make it work, make it good, make it fast. This is a common developer axiom. It means: focus first on making something work (even if it isn't well written or it's buggy). Then, turn to making it work well. Then, and only then, start to worry about other things like performance.
-
-## Plagiarism
-
-Take a moment to refamiliarize yourself with the [Plagiarism policy](https://git.generalassemb.ly/DC-WDI/Administrative/blob/master/plagiarism.md). Plagiarized work will not be accepted.
-
-## [License](LICENSE)
-
-1.  All content is licensed under a CC­BY­NC­SA 4.0 license.
-1.  All software code is licensed under GNU GPLv3. For commercial use or
-    alternative licensing, please contact legal@ga.co.
+2. Allow the user to specify the number of players and the number of cards dealt to each player.
+3. Add additional game modes, such as a best-of-three or a timed game.
+4. Implement additional card games, such as Go Fish or Poker.
