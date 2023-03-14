@@ -1,4 +1,4 @@
-const Deck = require('./Deck');
+const Deck = require('./deck');
 
 class GameOfWar {
   constructor() {
