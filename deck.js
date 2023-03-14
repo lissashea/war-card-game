@@ -14,7 +14,7 @@ class Deck {
       for (let j = 0; j < ranks.length; j++) {
         let rankScore = parseInt(ranks[j]);
         if (ranks[j] === 'Ace') {
-          rankScore = 1;
+          rankScore = 14;
         } else if (ranks[j] === 'Jack') {
           rankScore = 11;
         } else if (ranks[j] === 'Queen') {
