@@ -1,38 +1,19 @@
-Game of War
-Game of War is a classic card game played with a standard deck of 52 playing cards. The objective of the game is to win all the cards.
+# Game of War
 
-Rules
-1. The deck is divided evenly between two players.
-In each round, both players play the top card from their deck.
-2. The player with the higher card wins the round and takes both cards.
-3. If both players play cards of the same rank, a "war" is declared:
-4. Each player plays three additional cards face down, and then one more card face up.
-5. The player with the higher card wins all the cards in the "war".
-6. The game ends when one player has won all the cards.
-How to Run
+The Game of War is a classic card game that is typically played with a standard 52-card deck. The game is played by two players, who each start with half of the deck. Players draw cards from their own deck and play them face-up against the other player's card. The player with the higher card wins the round and takes both cards. If the cards have the same value, a "war" is declared and each player draws four more cards and plays another round. The game continues until one player runs out of cards, at which point the other player wins.
 
+## How to Play
 
-To play the game, run the following command in your terminal:
+To play the Game of War, simply run the `GameOfWar` class provided in the `gameOfWar.js` file. This will create a new deck of cards, shuffle it, deal the cards to the two players, and then start the game. The game will continue until one player has all the cards, at which point the winner will be declared.
 
-```
-node GameOfWar.js
-```
-This will start the game and output the progress of each round to the console.
+## Code Implementation
 
-Implementation Details:
+The code for the Game of War is implemented using three classes: `Card`, `Deck`, and `GameOfWar`. 
 
-1. This Game of War implementation is written in JavaScript and uses classes to represent the game components. The Card class represents a playing card, the Deck class represents a deck of cards, and the GameOfWar class represents the game itself.
+The `Card` class represents a single playing card and has properties for the card's rank, suit, and value. The `Deck` class represents a deck of playing cards and has methods for shuffling the deck, dealing cards, and creating a new deck. The `GameOfWar` class represents the game itself and has methods for dealing cards, playing rounds, and declaring the winner.
 
-2. The game is played by creating a new instance of the GameOfWar class, which initializes a new Deck and deals the cards to two players. The GameOfWar class then proceeds to play rounds until one player wins all the cards.
+When a new `GameOfWar` object is created, it creates a new deck of cards, shuffles the deck, and deals the cards to the two players. The game then begins by playing rounds until one player has all the cards. During each round, the top card from each player's deck is played and compared. If one card is higher than the other, the player with the higher card takes both cards and adds them to the bottom of their deck. If the cards have the same value, a war is declared and each player draws four more cards and plays another round. The winner of the war takes all the cards that were played in the war. The game continues until one player has all the cards, at which point the other player is declared the winner.
 
-3. During each round, the GameOfWar class compares the top cards of each player's deck and determines a winner. If a "war" is declared, the GameOfWar class plays additional cards and determines a winner for the "war".
+The `GameOfWar` class also includes several helper methods, such as `takeCards` which is used to take a specified number of cards from a player's deck, and `playWar` which is used to handle the special case where a war is declared. 
 
-4. At the end of the game, the GameOfWar class outputs the winner to the console.
-
-Future Improvements:
-
-1.Add a user interface to allow players to interact with the game.
-
-2. Allow the user to specify the number of players and the number of cards dealt to each player.
-3. Add additional game modes, such as a best-of-three or a timed game.
-4. Implement additional card games, such as Go Fish or Poker.
+Overall, the implementation of the Game of War is a good example of object-oriented programming, as it uses classes to represent the various objects in the game and encapsulates the game logic in a single class.
