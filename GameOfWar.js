@@ -1,6 +1,5 @@
 const Deck = require('./deck');
-const Card = require('./card');
-
+const Card =  require('./card');
 
 class GameOfWar {
   constructor() {
@@ -12,6 +11,7 @@ class GameOfWar {
     this.totalCardsPlayer1 = 26; // initialize totalCardsPlayer1 to 26
     this.totalCardsPlayer2 = 26; // initialize totalCardsPlayer2 to 26
     this.inWar = false;
+    this.warPot = []//collects the war cards during playWar to be added to winning player's array
     this.play();
   }
   
@@ -20,22 +20,25 @@ class GameOfWar {
       this.player1.push(this.deck.draw());
       this.player2.push(this.deck.draw());
     }
+    console.log(this.player1)
+    console.log(this.player2)
   }
- 
+
   play() {
+    console.log("reset")
     this.round = 0;
-    let inWar = false;
-    let warPot = [];
-    while (this.player1.length > 0 && this.player2.length > 0) {
+    this.inWar = false;
+    this.warPot = [];
+    while ((this.player1.length > 0 && this.player2.length > 0) && (this.round < 25)) {
       this.round++;
       console.log(`Round ${this.round}:`);
       if (this.inWar) {
         // continue war round
-        this.playWar(warPot);
-      if (!this.inWar) {
+        this.playWar(this.warPot);
+        if (!this.inWar) {
           // war ended, continue playing game
           this.playRound();
-      }
+        }
       } else {
         // regular round
         this.playRound();
@@ -51,6 +54,7 @@ class GameOfWar {
   playRound() {
     const card1 = this.player1.shift();
     const card2 = this.player2.shift();
+    // console.log(`Round ${this.round}:`);
     console.log(`Player 1 (${this.player1.length} cards) plays ${card1.rank} of ${card1.suit}`);
     console.log(`Player 2 (${this.player2.length} cards) plays ${card2.rank} of ${card2.suit}`);
   
@@ -66,62 +70,75 @@ class GameOfWar {
       console.log(`Player 2 now has ${this.player2.length} cards.`);
     } else {
       console.log("War!!!!!!!");
-      this.warPot = [card1, card2];
+      this.playWar();
+      this.warPot.push(card1,card2)
       this.inWar = true;
+      console.log(this.warPot)
+    }
+
+    if (this.player1.length === 0) {
+      console.log("Player 2 wins the game! Player 1 has run out of cards.");
+      return;
+    } else if (this.player2.length === 0) {
+      console.log("Player 1 wins the game! Player 2 has run out of cards.");
+      return;
     }
   }
+  
+  playWar() {
+    console.log(this.warPot)
+      while (this.inWar) {
+        console.log("in War")
+      if (this.player1.length < 4) {
+        console.log("Player 2 wins the game! Player 1 has run out of cards.");
+        return;
+      } else if (this.player2.length < 4) {
+        console.log("Player 1 wins the game! Player 2 has run out of cards.");
+        return;
+      }
 
-  playWar(warPot) {
-    while (this.inWar) {
-      const numCardsInPot = this.warPot.length;
-      const numCardsNeeded = Math.max(4 - numCardsInPot, 0);
-      if (this.player1.length < numCardsNeeded) {
-        console.log("Player 2 wins the game! Player 1 has run out of cards.");
-        return;
-      } else if (this.player2.length < numCardsNeeded) {
-        console.log("Player 1 wins the game! Player 2 has run out of cards.");
-        return;
-      }
-      const cards1 = this.player1.splice(0, numCardsNeeded);
-      const cards2 = this.player2.splice(0, numCardsNeeded);
-      this.warPot.push(...cards1, ...cards2);
-  
-      if (this.player1.length === 0) {
-        console.log("Player 2 wins the game! Player 1 has run out of cards.");
-        return;
-      } else if (this.player2.length === 0) {
-        console.log("Player 1 wins the game! Player 2 has run out of cards.");
-        return;
-      }
-  
+
       const lastCard1 = this.player1.shift();
       const lastCard2 = this.player2.shift();
-      
+
       this.warPot.push(lastCard1, lastCard2);
+      
+      const card1a = this.player1.shift();
+      const card1b = this.player1.shift();
+      const card1c = this.player1.shift();
+      const card2a = this.player2.shift();
+      const card2b = this.player2.shift();
+      const card2c = this.player2.shift();
+      console.log(this.warPot)
+
+
+      this.warPot.push(card1a, card1b, card1c, card2a, card2b, card2c);
+  
       console.log(`Player 1 plays ${lastCard1.rank} of ${lastCard1.suit}`);
       console.log(`Player 2 plays ${lastCard2.rank} of ${lastCard2.suit}`);
-  
+      console.log(this.warPot)
+
       if (lastCard1.score > lastCard2.score) {
         console.log("Player 1 wins the war!");
         this.player1.push(...this.warPot);
-        const numCardsAdded = this.warPot.length - numCardsInPot - 2;
-        console.log(`${numCardsAdded} cards added to the winner's pot`);
+        console.log(this.player1)
+        console.log(`${this.warPot.length} cards added to the winner's pot`);
         console.log(`Player 1 now has ${this.player1.length} cards.`);
         this.warPot = []; // empty the warPot for the next round
-        this.inWar = false; // war ended, exit the while loop
+        this.inWar = false;
       } else if (lastCard1.score < lastCard2.score) {
         console.log("Player 2 wins the war!");
         this.player2.push(...this.warPot);
-        const numCardsAdded = this.warPot.length - numCardsInPot - 2;
-        console.log(`${numCardsAdded} cards added to the winner's pot`);
+        console.log(this.player2)
+        console.log(`${this.warPot.length} cards added to the winner's pot`);
         console.log(`Player 2 now has ${this.player2.length} cards.`);
         this.warPot = []; // empty the warPot for the next round
-        this.inWar = false; // war ended, exit the while loop
+        this.inWar = false;
       } else {
         console.log("Another tie!");
+        console.log("****************************************************")
       }
     }
-  }  
+  }
 }
-
 module.exports = GameOfWar;
