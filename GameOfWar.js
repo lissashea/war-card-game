@@ -70,46 +70,43 @@ class GameOfWar {
   }
 
   playWar(card1, card2) {
-    let warPot = [card1, card2];
+    this.warPot = [card1, card2];
 
     while (true) {
-      if (this.player1.length < 4) {
+      const numCardsInPot = this.warPot.length;
+      const numCardsNeeded = Math.max(4 - numCardsInPot, 0);
+      if (this.player1.length < numCardsNeeded) {
         console.log("Player 2 wins the game! Player 1 has run out of cards.");
         return;
-      } else if (this.player2.length < 4) {
+      } else if (this.player2.length < numCardsNeeded) {
         console.log("Player 1 wins the game! Player 2 has run out of cards.");
         return;
       }
-      const card1a = this.player1.shift();
-      const card1b = this.player1.shift();
-      const card1c = this.player1.shift();
-      const card2a = this.player2.shift();
-      const card2b = this.player2.shift();
-      const card2c = this.player2.shift();
-      
-      warPot.push(card1a, card1b, card1c, card2a, card2b, card2c);
-  
+      const cards1 = this.player1.splice(0, numCardsNeeded);
+      const cards2 = this.player2.splice(0, numCardsNeeded);
+      this.warPot.push(...cards1, ...cards2);
+
       const lastCard1 = this.player1.shift();
       const lastCard2 = this.player2.shift();
-      warPot.push(lastCard1, lastCard2);
+      this.warPot.push(lastCard1, lastCard2);
       console.log(`Player 1 plays ${lastCard1.rank} of ${lastCard1.suit}`);
       console.log(`Player 2 plays ${lastCard2.rank} of ${lastCard2.suit}`);
-  
+
       if (lastCard1.score > lastCard2.score) {
         console.log("Player 1 wins the war!");
-        this.player1.push(...warPot);
-        console.log(this.player1)
-        console.log(`${warPot.length} cards added to the winner's pot`);
+        this.player1.push(...this.warPot);
+        const numCardsAdded = this.warPot.length - numCardsInPot - 2;
+        console.log(`${numCardsAdded} cards added to the winner's pot`);
         console.log(`Player 1 now has ${this.player1.length} cards.`);
-        warPot = []; // empty the warPot for the next round
+        this.warPot = []; // empty the warPot for the next round
         break;
       } else if (lastCard1.score < lastCard2.score) {
         console.log("Player 2 wins the war!");
-        this.player2.push(...warPot);
-        console.log(this.player2)
-        console.log(`${warPot.length} cards added to the winner's pot`);
+        this.player2.push(...this.warPot);
+        const numCardsAdded = this.warPot.length - numCardsInPot - 2;
+        console.log(`${numCardsAdded} cards added to the winner's pot`);
         console.log(`Player 2 now has ${this.player2.length} cards.`);
-        warPot = []; // empty the warPot for the next round
+        this.warPot = []; // empty the warPot for the next round
         break;
       } else {
         console.log("Another tie!");
