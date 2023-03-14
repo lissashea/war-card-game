@@ -18,13 +18,14 @@ class GameOfWar {
       this.player2.push(this.deck.draw());
     }
   }
+ 
   play() {
-    let round = 0;
+    this.round = 0;
     let inWar = false;
     let warPot = [];
     while (this.player1.length > 0 && this.player2.length > 0) {
-      round++;
-      console.log(`Round ${round}:`);
+      this.round++;
+      console.log(`Round ${this.round}:`);
       if (inWar) {
         // continue war round
         this.playWar(warPot);
@@ -47,7 +48,6 @@ class GameOfWar {
   playRound() {
     const card1 = this.player1.shift();
     const card2 = this.player2.shift();
-    // console.log(`Round ${this.round}:`);
     console.log(`Player 1 (${this.player1.length} cards) plays ${card1.rank} of ${card1.suit}`);
     console.log(`Player 2 (${this.player2.length} cards) plays ${card2.rank} of ${card2.suit}`);
   
@@ -63,14 +63,14 @@ class GameOfWar {
       console.log(`Player 2 now has ${this.player2.length} cards.`);
     } else {
       console.log("War!!!!!!!");
-      this.playWar(card1,card2);
+      this.playWar(card1, card2);
     }
-  
+
     this.round++;
   }
-  
-  playWar(card1,card2) {
-    let warPot = [card1,card2];
+
+  playWar(card1, card2) {
+    let warPot = [card1, card2];
 
     while (true) {
       if (this.player1.length < 4) {
@@ -87,13 +87,11 @@ class GameOfWar {
       const card2b = this.player2.shift();
       const card2c = this.player2.shift();
       
-
       warPot.push(card1a, card1b, card1c, card2a, card2b, card2c);
   
       const lastCard1 = this.player1.shift();
       const lastCard2 = this.player2.shift();
       warPot.push(lastCard1, lastCard2);
-
       console.log(`Player 1 plays ${lastCard1.rank} of ${lastCard1.suit}`);
       console.log(`Player 2 plays ${lastCard2.rank} of ${lastCard2.suit}`);
   
@@ -119,4 +117,5 @@ class GameOfWar {
     }
   }
 }
+
 module.exports = GameOfWar;
