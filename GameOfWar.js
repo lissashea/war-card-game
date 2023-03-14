@@ -2,10 +2,10 @@ const Deck = require('./deck');
 
 class GameOfWar {
   constructor() {
-    this.deck = new Deck();
+    this.deck = new Deck();//fresh deck
     this.player1 = [];
     this.player2 = [];
-    this.dealCards();
+    this.dealCards();//deal new deck
     this.round = 1; // initialize round variable to 1
     this.totalCardsPlayer1 = 26; // initialize totalCardsPlayer1 to 26
     this.totalCardsPlayer2 = 26; // initialize totalCardsPlayer2 to 26
@@ -22,7 +22,7 @@ class GameOfWar {
     let round = 0;
     let inWar = false;
     let warPot = [];
-    while (this.player1.length > 0 && this.player2.length > 0) {
+    while (this.player1.length > 0 && this.player2.length > 0 && round < 25) {
       round++;
       console.log(`Round ${round}:`);
       if (inWar) {
@@ -47,7 +47,7 @@ class GameOfWar {
   playRound() {
     const card1 = this.player1.shift();
     const card2 = this.player2.shift();
-    console.log(`Round ${this.round}:`);
+    // console.log(`Round ${this.round}:`);
     console.log(`Player 1 (${this.player1.length} cards) plays ${card1.rank} of ${card1.suit}`);
     console.log(`Player 2 (${this.player2.length} cards) plays ${card2.rank} of ${card2.suit}`);
   
@@ -70,8 +70,8 @@ class GameOfWar {
   }
   
   playWar(card1, card2) {
-    const pot = [card1, card2];
-    console.log("War!");
+    const warPot = [card1, card2];
+    // console.log("War!");
 
     while (true) {
       if (this.player1.length < 4) {
@@ -88,28 +88,36 @@ class GameOfWar {
       const card2b = this.player2.shift();
       const card2c = this.player2.shift();
   
-      pot.push(card1a, card1b, card1c, card2a, card2b, card2c);
+      warPot.push(card1a, card1b, card1c, card2a, card2b, card2c);
+     
   
       const lastCard1 = this.player1.shift();
       const lastCard2 = this.player2.shift();
-      pot.push(lastCard1, lastCard2);
+      warPot.push(lastCard1, lastCard2);
+      console.log(warPot)
   
       console.log(`Player 1 plays ${lastCard1.rank} of ${lastCard1.suit}`);
       console.log(`Player 2 plays ${lastCard2.rank} of ${lastCard2.suit}`);
   
       if (lastCard1.score > lastCard2.score) {
         console.log("Player 1 wins the war!");
-        this.player1.push(...pot);
+        this.player1.push(...warPot);
+        console.log(`${warPot.length} cards added to the winner's pot`)
+        console.log(`Player 1 now has ${this.player1.length} cards.`);
         break;
       } else if (lastCard1.score < lastCard2.score) {
         console.log("Player 2 wins the war!");
-        this.player2.push(...pot);
+        this.player2.push(...warPot);//contents of array with spread operator
+        console.log(`${warPot.length} cards added to the winner's pot `)
+        console.log(`Player 2 now has ${this.player2.length} cards.`);
         break;
       } else {
         console.log("Another tie!");
+        continue;
       }
     }
   }
+  pot = []
 }
 
 module.exports = GameOfWar;
