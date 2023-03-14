@@ -22,6 +22,7 @@ class GameOfWar {
     }
   }
  
+ 
   play() {
     this.round = 0;
     let inWar = false;
@@ -49,6 +50,13 @@ class GameOfWar {
   }
 
   playRound() {
+    if (this.player1.length === 0) {
+      console.log("Player 2 wins the game! Player 1 has run out of cards.");
+      return;
+    } else if (this.player2.length === 0) {
+      console.log("Player 1 wins the game! Player 2 has run out of cards.");
+      return;
+    }
     const card1 = this.player1.shift();
     const card2 = this.player2.shift();
     console.log(`Player 1 (${this.player1.length} cards) plays ${card1.rank} of ${card1.suit}`);
@@ -70,7 +78,7 @@ class GameOfWar {
       this.inWar = true;
     }
   }
-
+  
   playWar() {
     while (this.inWar) {
       const numCardsInPot = this.warPot.length;
