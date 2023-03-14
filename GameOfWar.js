@@ -63,22 +63,14 @@ class GameOfWar {
       console.log(`Player 2 now has ${this.player2.length} cards.`);
     } else {
       console.log("War!!!!!!!");
-      this.playWar(card1, card2);
+      this.playWar(card1,card2);
     }
   
     this.round++;
-
-    if (this.player1.length === 0) {
-      console.log("Player 2 wins the game! Player 1 has run out of cards.");
-      return;
-    } else if (this.player2.length === 0) {
-      console.log("Player 1 wins the game! Player 2 has run out of cards.");
-      return;
-    }
   }
   
-  playWar(card1, card2) {
-    let warPot = [card1, card2];
+  playWar(card1,card2) {
+    let warPot = [card1,card2];
 
     while (true) {
       if (this.player1.length < 4) {
